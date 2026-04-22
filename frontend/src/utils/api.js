@@ -1,20 +1,20 @@
 import axios from 'axios';
 
+// Seedha Render ka URL yahan paste kar do
 const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: 'https://expensetracko.onrender.com',
 });
 
 export const fetchExpenses = (category = '', sort = '') => {
   return api.get('/expenses', {
     params: {
-      category: category || undefined,
+      category: (category && category !== 'All') ? category : undefined,
       sort: sort || undefined
     }
   });
 };
 
 export const createExpense = (data) => {
-  // Safe UUID generator
   const uuid = typeof crypto.randomUUID === 'function' 
     ? crypto.randomUUID() 
     : Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -33,3 +33,5 @@ export const formatCurrency = (amount) => {
     currency: 'INR',
   }).format(amount || 0);
 };
+
+export default api;
