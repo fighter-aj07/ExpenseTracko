@@ -1,11 +1,16 @@
-🚀 ExpenseTracko - Full-Stack Expense Tracker
-A production-ready, minimal full-stack application to record and review personal expenses. Built with FastAPI (Python) and React (Vite), focusing on reliability, data correctness, and network resilience.
+# 🚀 ExpenseTracko - Full-Stack Expense Tracker
 
-🏗️ System Architecture
-The application follows a clean Client-Server architecture. To ensure production-like quality, we implemented Idempotency to handle network retries and duplicate submissions.
+A production-ready, minimal full-stack application to record and review personal expenses. Built with **FastAPI** (Python) and **React** (Vite), focusing on reliability, data correctness, and network resilience.
 
-High-Level Design (HLD)
-Code snippet
+---
+
+## 🏗️ System Architecture
+
+The application follows a clean Client-Server architecture. To ensure production-like quality, we implemented **Idempotency** to handle network retries and duplicate submissions.
+
+### High-Level Design (HLD)
+
+```mermaid
 sequenceDiagram
     participant User
     participant Frontend (React)
@@ -26,6 +31,7 @@ sequenceDiagram
     end
     
     Frontend->>User: Update UI Table & Total Spent
+
 ✨ Features
 Reliable Data Entry: Prevents duplicate entries using idempotency_key (important for flaky networks).
 
