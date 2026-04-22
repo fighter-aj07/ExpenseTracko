@@ -4,6 +4,8 @@ from typing import Optional
 from .models import Expense, ExpenseCreate, ExpenseResponse
 from .database import read_expenses, write_expenses
 import uuid
+import os
+import uvicorn
 
 app = FastAPI()
 
@@ -33,15 +35,20 @@ def get_expenses(category: Optional[str] = None, sort: Optional[str] = None):
     db_data = read_expenses()
     expenses_list = db_data.get("expenses", [])
     
-    # Debug log
-    print(f"Filter received: {category}")
+    # Debugging ke liye (Terminal mein dikhega)
+    print(f"Received filter: category={category}")
 
-    # FIX: Agar category 'All' hai ya None hai, toh filtering mat karo
-    if category and category.lower() != "all":
-        expenses_list = [e for e in expenses_list if e.get('category', '').lower() == category.lower()]
+    # Case-insensitive check aur filtering logic
+    if category and category != "All":
+        expenses_list = [e for e in expenses_list if e.get('category').lower() == category.lower()]
     
-    # Sorting: Newest first
-    expenses_list.sort(key=lambda x: x.get('date', ''), reverse=True)
+    if sort == "date_desc":
+        expenses_list.sort(key=lambda x: x.get('date', ''), reverse=True)
         
     current_total = sum(float(e.get('amount', 0)) for e in expenses_list)
     return {"expenses": expenses_list, "total": current_total}
+
+    if __name__ == "__main__":
+    # Render environment variable 'PORT' deta hai, default 8000
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
