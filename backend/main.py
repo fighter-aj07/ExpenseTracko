@@ -17,6 +17,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.post("/expenses")
+def add_expense(expense: ExpenseCreate):
+    db_data = read_expenses()
+    expenses_list = db_data.get("expenses", [])
+
+    # Naya expense object create karna (ID ke saath)
+    new_expense = expense.dict()
+    new_expense["id"] = str(uuid.uuid4())
+    
+    expenses_list.append(new_expense)
+    
+    # Database (JSON file) mein save karna
+    write_expenses({"expenses": expenses_list})
+    
+    return new_expense
+
 @app.get("/expenses", response_model=ExpenseResponse)
 def get_expenses(category: Optional[str] = None, sort: Optional[str] = None):
     db_data = read_expenses()
