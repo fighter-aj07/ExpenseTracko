@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
-from .models import Expense, ExpenseCreate, ExpenseResponse
-from .database import read_expenses, write_expenses
+from models import Expense, ExpenseCreate, ExpenseResponse
+from database import save_expenses, load_expenses
 import uuid
 import os
 import uvicorn
@@ -51,7 +51,5 @@ def get_expenses(category: Optional[str] = None, sort: Optional[str] = None):
 # ... aapka baaki code ...
 
 if __name__ == "__main__":
-    # Is line se pehle 4 spaces honi chahiye
     port = int(os.environ.get("PORT", 8000))
-    # Is line se pehle bhi 4 spaces
     uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
