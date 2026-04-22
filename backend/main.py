@@ -48,7 +48,10 @@ def get_expenses(category: Optional[str] = None, sort: Optional[str] = None):
     current_total = sum(float(e.get('amount', 0)) for e in expenses_list)
     return {"expenses": expenses_list, "total": current_total}
 
-    if __name__ == "__main__":
-    # Render environment variable 'PORT' deta hai, default 8000
+# ... aapka baaki code ...
+
+if __name__ == "__main__":
+    # Is line se pehle 4 spaces honi chahiye
     port = int(os.environ.get("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    # Is line se pehle bhi 4 spaces
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
