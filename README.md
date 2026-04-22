@@ -31,6 +31,7 @@ sequenceDiagram
     end
     
     Frontend->>User: Update UI Table & Total Spent
+```
 ✨ Features
 Reliable Data Entry: Prevents duplicate entries using idempotency_key (important for flaky networks).
 
