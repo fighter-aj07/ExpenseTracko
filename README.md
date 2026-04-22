@@ -8,6 +8,9 @@ A production-ready, minimal full-stack application to record and review personal
 
 The application follows a clean Client-Server architecture. To ensure production-like quality, we implemented **Idempotency** to handle network retries and duplicate submissions.
 
+### High-Level Design (HLD)
+
+```mermaid
 sequenceDiagram
     participant User
     participant Frontend (React)
